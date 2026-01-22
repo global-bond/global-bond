@@ -1,0 +1,229 @@
+.gba-header {
+  position: fixed; /* keep visible while scrolling */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid var(--gba-border-subtle);
+  transform: translateY(0);
+  transition: transform 260ms ease, box-shadow 180ms ease;
+}
+
+/* Slide header out when hiding on scroll down */
+.gba-header--hidden {
+  transform: translateY(-100%);
+}
+
+/* Slightly stronger shadow after first scroll */
+.gba-header--scrolled {
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+}
+
+.gba-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem min(6vw, 4.5rem);
+  font-size: 0.78rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.gba-header__top-left,
+.gba-header__top-right {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.gba-header__top-item {
+  color: #4b5563;
+}
+
+.gba-header__top-item--phone {
+  font-weight: 600;
+  color: #111827;
+}
+
+.gba-header__top-link {
+  color: #2563eb;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.gba-header__top-link:hover {
+  text-decoration: underline;
+}
+
+.gba-header__divider {
+  color: #9ca3af;
+}
+
+.gba-header__social {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.gba-header__social:hover {
+  color: #2563eb;
+  border-color: #cbd5e1;
+}
+
+.gba-header__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+}
+
+.gba-header__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem min(6vw, 4.5rem);
+  gap: 1.25rem;
+}
+
+.gba-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  /* Keep logo and tagline perfectly matched */
+  --logo-width: 220px; /* widen so tagline fits on one line */
+}
+
+.gba-header__logo-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--logo-width);
+}
+
+.gba-header__logo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gba-header__tagline {
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4b5563;
+  width: var(--logo-width);
+  max-width: var(--logo-width);
+  text-align: center;
+  line-height: 1.15;
+  white-space: nowrap; /* keep on single line at desktop */
+}
+
+.gba-header__links {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-left: auto; /* push nav to the right */
+}
+
+.gba-header__links a {
+  color: #111827;
+  position: relative;
+  padding: 0.25rem 0.4rem;
+  border-radius: 999px;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.gba-header__links a:hover {
+  color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.08);
+}
+
+.gba-header__links a:focus-visible {
+  outline: 2px solid rgba(37, 99, 235, 0.5);
+  outline-offset: 2px;
+}
+
+.gba-header__links a::after {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  right: 0.35rem;
+  bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+.gba-header__links a:hover::after,
+.gba-header__links a.active::after,
+.gba-header__links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.gba-header__links a.active {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.gba-header__cta {
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  color: #ffffff;
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.gba-header__cta:hover {
+  filter: brightness(1.05);
+}
+
+@media (max-width: 900px) {
+  .gba-header__top {
+    padding-inline: 1.5rem;
+  }
+
+  .gba-header__main {
+    padding-inline: 1.25rem;
+    gap: 0.9rem;
+  }
+
+  .gba-header__links {
+    display: none;
+  }
+
+  /* Keep logo/tagline matched on smaller screens */
+  .gba-header__brand { 
+    --logo-width: 140px; 
+  }
+  .gba-header__tagline {
+    white-space: normal;
+  }
+  .gba-header__logo-img {
+    width: 100%;
+    height: auto;
+  }
+}

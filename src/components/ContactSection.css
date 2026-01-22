@@ -1,0 +1,49 @@
+.gba-contact{max-width:1100px;margin:0 auto}
+.gba-contact--grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1.2rem;align-items:start}
+
+/* Aside card */
+.gba-contact__aside{background:linear-gradient(145deg,var(--gba-surface),var(--gba-surface-soft));border:1px solid var(--gba-border-subtle);border-radius:18px;padding:1.3rem;box-shadow:var(--gba-shadow-soft)}
+.gba-contact__aside h3{margin:.2rem 0 .6rem}
+.gba-contact__aside-text{margin:0 0 .8rem;color:var(--gba-text-muted)}
+.gba-contact__chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem}
+.gba-contact__chip{display:inline-flex;align-items:center;justify-content:center;padding:.45rem .75rem;border-radius:var(--gba-radius-pill);background:var(--gba-accent-soft);color:var(--gba-accent-strong);text-decoration:none;font-weight:700}
+.gba-contact__aside-list{margin:.2rem 0 0;padding-left:1.1rem;color:var(--gba-text-muted)}
+
+/* Form */
+.gba-contact__form{background:var(--gba-surface);border-radius:20px;padding:1.6rem;border:1px solid var(--gba-border-subtle);box-shadow:var(--gba-shadow-soft)}
+.gba-contact__row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem}
+.gba-contact__form label{display:flex;flex-direction:column;gap:.35rem;font-size:.86rem}
+.gba-contact__form input,.gba-contact__form textarea,.gba-contact__form select{border-radius:12px;border:1px solid rgba(2,6,12,.2);background:#fff;padding:.6rem .75rem;color:var(--gba-text);font:inherit}
+.gba-contact__form textarea{resize:vertical}
+.gba-contact__form input:focus,.gba-contact__form textarea:focus,.gba-contact__form select:focus{outline:none;border-color:var(--gba-accent);box-shadow:0 0 0 2px rgba(0,188,212,.2)}
+.gba-contact__methods{display:flex;align-items:center;gap:.6rem;margin:.7rem 0}
+.gba-contact__radio{display:inline-flex;align-items:center;gap:.3rem}
+.gba-contact__form button{margin-top:1rem}
+.gba-contact__note{margin-top:.7rem;font-size:.8rem;color:var(--gba-text-muted)}
+
+@media (max-width:900px){.gba-contact--grid{grid-template-columns:minmax(0,1fr)}.gba-contact__row{grid-template-columns:minmax(0,1fr)}}
+
+/* Accent section: richer, animated gradient scoped to Contact only */
+#contact.gba-section--accent{
+	background: linear-gradient(135deg,#00e5ff,#34d399,#8b5cf6);
+	background-size: 200% 200%;
+	animation: gba-gradient-shift 12s ease infinite;
+}
+
+@keyframes gba-gradient-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* Motion: load-in + hover lift */
+@keyframes contact-fade-in-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.gba-contact__aside,.gba-contact__form{animation:contact-fade-in-up .6s both;transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s cubic-bezier(.22,.61,.36,1)}
+.gba-contact__form{animation-delay:.08s}
+.gba-contact__aside:hover,.gba-contact__form:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(2,6,12,.12)}
+
+/* Chip interactions */
+.gba-contact__chip{transition:transform .2s ease,box-shadow .2s ease;background:rgba(0,188,212,.12)}
+.gba-contact__chip:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(2,6,12,.12)}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+	#contact.gba-section--accent{animation:none}
+	.gba-contact__aside,.gba-contact__form,.gba-contact__chip{animation:none;transition:none}
+}

@@ -1,0 +1,21 @@
+/* Animations for Product Categories section */
+
+@keyframes pc-fade-in-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Add hover transitions specifically for category cards */
+.gba-cards-grid .gba-card {
+   transition: transform .28s cubic-bezier(.22,.61,.36,1), box-shadow .28s cubic-bezier(.22,.61,.36,1);
+   will-change: transform, box-shadow;
+   animation: pc-fade-in-up .5s both;
+}
+.gba-cards-grid .gba-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(2,6,12,.12); }
+
+/* Gentle stagger: first four cards */
+.gba-cards-grid .gba-card:nth-child(2) { animation-delay: .06s; }
+.gba-cards-grid .gba-card:nth-child(3) { animation-delay: .12s; }
+.gba-cards-grid .gba-card:nth-child(4) { animation-delay: .18s; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+   .gba-cards-grid .gba-card { animation: none !important; transition: none !important; }
+}

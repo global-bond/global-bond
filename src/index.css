@@ -15,6 +15,11 @@ body {
   min-height: 100vh;
 }
 
+/* Prevent fixed header from covering in-page anchor targets */
+html {
+  scroll-padding-top: var(--gba-header-height, 110px);
+}
+
 a {
   font-weight: 500;
   color: inherit;

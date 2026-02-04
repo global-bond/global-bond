@@ -1,6 +1,8 @@
 import './NavigationBar.css'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { catalogCategories, productsByCategory } from '../content/products'
+import type { CatalogCategory } from '../content/products'
 
 function NavigationBar() {
   const [hidden, setHidden] = useState(false)
@@ -33,6 +35,41 @@ function NavigationBar() {
 
   const location = useLocation()
   const isActive = (path: string) => location.pathname === path
+  const isProductsActive = location.pathname.startsWith('/products')
+
+  const [productsOpen, setProductsOpen] = useState(false)
+  const [activeCategory, setActiveCategory] = useState<CatalogCategory | null>(null)
+  const [activeOffset, setActiveOffset] = useState(0)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!productsOpen) return
+    const onClickOutside = (event: MouseEvent) => {
+      if (!dropdownRef.current?.contains(event.target as Node)) {
+        setProductsOpen(false)
+      }
+    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setProductsOpen(false)
+    }
+    document.addEventListener('mousedown', onClickOutside)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onClickOutside)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [productsOpen])
+
+  useEffect(() => {
+    if (!productsOpen) return
+    setActiveCategory(null)
+    setActiveOffset(0)
+  }, [productsOpen])
+
+  const activeProducts = useMemo(() => {
+    if (!activeCategory) return []
+    return productsByCategory(activeCategory)
+  }, [activeCategory])
 
   return (
     <header className={`gba-header ${hidden ? 'gba-header--hidden' : ''} ${scrolled ? 'gba-header--scrolled' : ''}`}>
@@ -82,7 +119,7 @@ function NavigationBar() {
       </div>
 
       <div className="gba-header__main">
-        <div className="gba-header__brand" aria-label="GBAD Globalbond">
+        <Link to="/" className="gba-header__brand" aria-label="GBAD Globalbond">
           <div className="gba-header__logo-box">
             <img
               src="/logo-gbad-globalbond.png"
@@ -93,16 +130,88 @@ function NavigationBar() {
           <span className="gba-header__tagline">
             TILE ADHESIVE, GROUT, EPOXY
           </span>
-        </div>
+        </Link>
 
         <nav className="gba-header__links" aria-label="Main navigation">
-          <Link to="/" className={isActive('/') ? 'active' : ''} aria-current={isActive('/') ? 'page' : undefined}>Home</Link>
-          <Link to="/product-guide" className={isActive('/product-guide') ? 'active' : ''} aria-current={isActive('/product-guide') ? 'page' : undefined}>Product Guide</Link>
-          <Link to="/products" className={isActive('/products') ? 'active' : ''} aria-current={isActive('/products') ? 'page' : undefined}>Our Products</Link>
-          <Link to="/about" className={isActive('/about') ? 'active' : ''} aria-current={isActive('/about') ? 'page' : undefined}>About Us</Link>
-          <Link to="/contact" className={isActive('/contact') ? 'active' : ''} aria-current={isActive('/contact') ? 'page' : undefined}>Contact Us</Link>
-          <a href="#others">Others</a>
+          <Link to="/" className={`gba-nav__link ${isActive('/') ? 'gba-nav__link--active' : ''}`}>
+            Home
+          </Link>
+          <Link to="/product-guide" className={`gba-nav__link ${isActive('/product-guide') ? 'gba-nav__link--active' : ''}`}>
+            Product Guide
+          </Link>
+          <div className={`gba-nav__dropdown ${productsOpen ? 'is-open' : ''}`} ref={dropdownRef}>
+            <button
+              type="button"
+              className={`gba-nav__link gba-nav__link--button ${isProductsActive ? 'gba-nav__link--active' : ''}`}
+              aria-haspopup="true"
+              aria-expanded={productsOpen}
+              onClick={() => setProductsOpen(open => !open)}
+            >
+              Products
+            </button>
+            <div
+              className="gba-mega"
+              role="menu"
+              aria-label="Product categories"
+              onMouseLeave={() => {
+                setActiveCategory(null)
+                setActiveOffset(0)
+              }}
+            >
+              <div className="gba-mega__cats">
+                {catalogCategories.map(cat => (
+                  <Link
+                    key={cat.key}
+                    to={`/products/${encodeURIComponent(cat.key)}`}
+                    className={`gba-mega__cat ${activeCategory === cat.key ? 'is-active' : ''}`}
+                    onMouseEnter={event => {
+                      setActiveCategory(cat.key)
+                      setActiveOffset((event.currentTarget as HTMLAnchorElement).offsetTop)
+                    }}
+                    onFocus={event => {
+                      setActiveCategory(cat.key)
+                      setActiveOffset((event.currentTarget as HTMLAnchorElement).offsetTop)
+                    }}
+                    onClick={() => setProductsOpen(false)}
+                  >
+                    {cat.title}
+                  </Link>
+                ))}
+                {activeCategory && productsOpen && (
+                  <div className="gba-mega__submenu" style={{ top: activeOffset }}>
+                    <div className="gba-mega__submenu-title">{activeCategory}</div>
+                    <div className="gba-mega__submenu-list">
+                      {activeProducts.length === 0 ? (
+                        <span className="gba-mega__submenu-empty">No products found.</span>
+                      ) : (
+                        activeProducts.map(product => (
+                          <Link
+                            key={product.code}
+                            to={`/product/${encodeURIComponent(product.code)}`}
+                            className="gba-mega__submenu-item"
+                            onClick={() => setProductsOpen(false)}
+                          >
+                            {product.name}
+                          </Link>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <Link to="/about" className={`gba-nav__link ${isActive('/about') ? 'gba-nav__link--active' : ''}`}>
+            About
+          </Link>
+          <Link to="/contact" className={`gba-nav__link ${isActive('/contact') ? 'gba-nav__link--active' : ''}`}>
+            Contact
+          </Link>
         </nav>
+
+        <div className="gba-header__actions">
+          <Link to="/contact" className="gba-header__cta">Get Consultation</Link>
+        </div>
 
       </div>
     </header>

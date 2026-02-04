@@ -22,11 +22,11 @@
 .gba-dealers__meta{list-style:none;margin:0;padding:0;display:grid;gap:.45rem;color:var(--gba-text-muted)}
 .gba-dealers__icon{display:inline-block;width:1.2rem;text-align:center;margin-right:.35rem}
 .gba-dealers__link{color:var(--gba-text);text-decoration:none}
-.gba-dealers__link:hover{color:var(--gba-accent-strong)}
+.gba-dealers__link:hover{color:var(--gba-accent-teal-strong)}
 
 .gba-dealers__actions{margin-top:.7rem;display:flex;gap:.5rem}
-.gba-dealers__btn{display:inline-flex;align-items:center;justify-content:center;padding:.5rem .9rem;border-radius:var(--gba-radius-pill);background:var(--gba-accent-strong);color:#fff;text-decoration:none;font-weight:700}
-.gba-dealers__btn--secondary{background:transparent;color:var(--gba-accent-strong);border:1px solid var(--gba-accent-strong)}
+.gba-dealers__btn{display:inline-flex;align-items:center;justify-content:center;padding:.5rem .9rem;border-radius:var(--gba-radius-pill);background:var(--gba-accent-teal);color:#052e2b;text-decoration:none;font-weight:700}
+.gba-dealers__btn--secondary{background:transparent;color:var(--gba-accent-teal-strong);border:1px solid var(--gba-accent-teal)}
 
 @media (max-width:900px){
   .gba-dealers{grid-template-columns:minmax(0,1fr)}

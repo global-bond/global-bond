@@ -1,4 +1,5 @@
 import './ProductGuide.css'
+import { Link } from 'react-router-dom'
 import { productGuide } from '../data/productGuide'
 
 function ProductGuidePage() {
@@ -20,7 +21,11 @@ function ProductGuidePage() {
             </div>
             {cat.items.map((item) => (
               <div className="gba-pg-row" role="row" key={item.code}>
-                <div role="cell">{item.code}</div>
+                <div role="cell">
+                  <Link to={`/product/${encodeURIComponent(item.code)}`} className="gba-pg-code-link">
+                    {item.code}
+                  </Link>
+                </div>
                 <div role="cell">{item.name}</div>
                 <div role="cell">{item.recommended}</div>
               </div>

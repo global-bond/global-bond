@@ -6,4 +6,6 @@
 .gba-pg-row>div{padding:.7rem 1rem;border-top:1px solid var(--gba-border-subtle)}
 .gba-pg-row:nth-child(even){background:rgba(2,6,12,.03)}
 .gba-pg-row--head{background:var(--gba-surface-soft);font-weight:700}
+.gba-pg-code-link{color:var(--gba-primary);text-decoration:none;font-weight:600;cursor:pointer;transition:color .2s ease}
+.gba-pg-code-link:hover{color:var(--gba-accent);text-decoration:underline}
 @media (max-width:900px){.gba-pg-row{grid-template-columns:minmax(0,1fr)}.gba-pg-row>div{border-top:none;border-bottom:1px solid var(--gba-border-subtle)}.gba-pg-row--head{display:none}}

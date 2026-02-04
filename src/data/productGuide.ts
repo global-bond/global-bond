@@ -47,7 +47,7 @@ export const productGuide: ProductCategory[] = [
     items: [
       { code: 'GBAD-811', name: 'Tile cleaner', description: 'Tile cleaner', recommended: 'All type of tiles' },
       { code: 'GBAD-831', name: 'Tap cleaner', description: 'Tap cleaner', recommended: 'All types of taps and Accessories cleaner' },
-      { code: 'GBAD-501', name: 'Super glu', description: 'Super glu', recommended: 'Bond Sets' },
+      { code: 'GBAD-501', name: 'Super glue', description: 'Super glue', recommended: 'Bond Sets' },
     ],
   },
 ]

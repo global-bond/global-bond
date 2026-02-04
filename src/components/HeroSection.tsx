@@ -10,7 +10,7 @@ function HeroSection() {
       subtitle="Globalbond Adhesives combines trusted quality and long-lasting performance, providing construction adhesives for a wide range of tiles and stones."
       actions={[
         { href: '#contact', label: 'Get Consultation', variant: 'primary' },
-        { href: '/products', label: 'View Our Products', variant: 'ghost' }
+        { href: '/catalog', label: 'View Our Products', variant: 'ghost' }
       ]}
       headingId="hero-heading"
     />

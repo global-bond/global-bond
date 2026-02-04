@@ -1,5 +1,5 @@
 import './OurProductsSection.css'
-import { products } from '../data/products'
+import { products } from '../content/products'
 
 function OurProductsSection() {
   return (

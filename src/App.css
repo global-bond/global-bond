@@ -1,26 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --gba-bg: #f7fafc; /* overall page background */
-  --gba-surface: #ffffff; /* cards and sections */
-  --gba-surface-soft: #f1f5f9; /* subtle panels */
-  --gba-accent: #00bcd4;
-  --gba-accent-soft: rgba(0, 188, 212, 0.1);
-  --gba-accent-strong: #007c91;
-  --gba-text: #0f172a; /* slate-900 */
-  --gba-text-muted: #475569; /* slate-600 */
-  --gba-border-subtle: rgba(2, 6, 12, 0.1);
+  /* Dark portfolio theme palette */
+  --gba-bg: #0b1220; /* overall page background */
+  --gba-surface: #0f172a; /* cards and sections */
+  --gba-surface-soft: #111827; /* subtle panels */
+  --gba-accent: #6366F1; /* indigo */
+  --gba-accent-soft: rgba(99, 102, 241, 0.16);
+  --gba-accent-strong: #c7d2fe; /* indigo-200 */
+  --gba-accent-teal: #00BFA6; /* teal accent */
+  --gba-accent-teal-soft: rgba(0, 191, 166, 0.16);
+  --gba-accent-teal-strong: #7af0df;
+  --gba-text: #e5e7eb; /* slate-200 */
+  --gba-text-muted: #94a3b8; /* slate-400 */
+  --gba-border-subtle: rgba(148, 163, 184, 0.18);
   --gba-radius-lg: 18px;
   --gba-radius-md: 14px;
   --gba-radius-pill: 999px;
-  --gba-shadow-soft: 0 10px 30px rgba(2, 6, 12, 0.08);
+  --gba-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 body {
   margin: 0;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
     sans-serif;
-  background: linear-gradient(180deg, #ffffff, #f8fafc 70%);
+  background: linear-gradient(180deg, #0b1220, #0f172a 70%);
   color: var(--gba-text);
 }
 
@@ -32,11 +36,11 @@ body {
   min-height: 100vh;
   color: var(--gba-text);
   background:
-    radial-gradient(circle at 0 0, rgba(0, 188, 212, 0.06), transparent 60%),
-    radial-gradient(circle at 100% 20%, rgba(0, 188, 212, 0.05), transparent 55%),
-    linear-gradient(180deg, #ffffff 0%, #f8fafc 60%, #f1f5f9 100%);
-  /* Offset for fixed header using measured height */
-  padding-top: var(--gba-header-height, 110px);
+    radial-gradient(circle at 0 0, rgba(99, 102, 241, 0.12), transparent 60%),
+    radial-gradient(circle at 100% 20%, rgba(14, 165, 233, 0.10), transparent 55%),
+    linear-gradient(180deg, #0b1220 0%, #0f172a 60%, #111827 100%);
+  /* Offset for fixed header - top bar (~30px) + main bar (~72px) = ~102px */
+  margin-top: var(--gba-header-height, 130px);
 }
 
 .gba-section {
@@ -45,12 +49,12 @@ body {
 }
 
 .gba-section--light {
-  background: linear-gradient(180deg, #ffffff, #f8fafc 80%);
+  background: linear-gradient(180deg, #0f172a, #111827 80%);
 }
 
 .gba-section--accent {
-  background: linear-gradient(135deg, #00bcd4, #00e5ff);
-  color: #021019;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #e5e7eb;
 }
 
 .gba-section--loading {
@@ -105,8 +109,8 @@ body {
   padding: 0.55rem 1.2rem;
   border: none;
   cursor: pointer;
-  background: var(--gba-accent-soft);
-  color: var(--gba-accent-strong);
+  background: var(--gba-accent-teal-soft);
+  color: var(--gba-accent-teal-strong);
   font-weight: 500;
 }
 
@@ -182,8 +186,8 @@ body {
   border-radius: var(--gba-radius-pill);
   border: none;
   padding: 0.45rem 1.1rem;
-  background: var(--gba-accent-soft);
-  color: var(--gba-accent-strong);
+  background: var(--gba-accent-teal-soft);
+  color: var(--gba-accent-teal-strong);
   font-weight: 500;
   cursor: pointer;
 }
@@ -238,8 +242,8 @@ body {
   border-radius: var(--gba-radius-pill);
   border: none;
   padding: 0.5rem 1.1rem;
-  background: var(--gba-accent-soft);
-  color: var(--gba-accent-strong);
+  background: var(--gba-accent-teal-soft);
+  color: var(--gba-accent-teal-strong);
   font-weight: 500;
   cursor: pointer;
 }
@@ -270,8 +274,8 @@ body {
   border-radius: var(--gba-radius-pill);
   border: none;
   padding: 0.45rem 1.15rem;
-  background: var(--gba-accent-soft);
-  color: var(--gba-accent-strong);
+  background: var(--gba-accent-teal-soft);
+  color: var(--gba-accent-teal-strong);
   cursor: pointer;
   font-weight: 500;
 }
@@ -290,14 +294,14 @@ body {
 }
 
 .gba-btn--primary {
-  background: linear-gradient(135deg, #00e5ff, #00bcd4);
-  color: #021019;
+  background: linear-gradient(135deg, #00BFA6, #1DD1A1);
+  color: #052e2b;
 }
 
 .gba-btn--ghost {
   background: transparent;
   color: var(--gba-text);
-  border: 1px solid rgba(2, 6, 12, 0.2);
+  border: 1px solid rgba(148, 163, 184, 0.24);
 }
 
 @media (max-width: 900px) {

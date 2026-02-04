@@ -30,7 +30,7 @@ function ProductDetails() {
             <span className="product-detail__badge">{product.type || 'Professional Grade'}</span>
             <h1 className="product-detail__title">{product.name}</h1>
             <p className="product-detail__subtitle">{product.code}</p>
-            <ProductGuideLinks product={product} />
+            <ProductGuideLinks />
           </div>
           <ProductImage product={product} />
         </div>
@@ -253,7 +253,7 @@ function ProductImage({ product }: { product: NonNullable<ReturnType<typeof prod
   )
 }
 
-function ProductGuideLinks({ product }: { product: NonNullable<ReturnType<typeof productByCode>> }) {
+function ProductGuideLinks() {
   return (
     <div className="product-detail__guides">
       <div className="product-detail__guides-header">Technical Assets</div>

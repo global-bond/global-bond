@@ -230,15 +230,7 @@ function ProductDetails() {
   )
 }
 
-function getFeatureTitle(index: number): string {
-  const titles = [
-    'Superior Performance',
-    'Exceptional Strength',
-    'Easy Application',
-    'Durability Tested'
-  ]
-  return titles[index] || 'Feature'
-}
+
 
 function ProductImage({ product }: { product: NonNullable<ReturnType<typeof productByCode>> }) {
   const primary = product.image ?? `/images/products/${product.code}.png`
@@ -276,23 +268,6 @@ function ProductGuideLinks({ product }: { product: NonNullable<ReturnType<typeof
       </a>
     </div>
   )
-}
-
-function parseRecommended(rec?: string): string[] {
-  if (!rec) return []
-  return rec.split(/[,•]/).map(s => s.trim()).filter(Boolean)
-}
-
-function mapCodeToCategory(code: string): 'Adhesives' | 'Grouts' | 'Admix' | 'Cleaners' {
-  if (/^GBAD-01/.test(code) || /GLOBALBOND|AQUABOND|SUPERBOND/i.test(code)) return 'Adhesives'
-  if (/^GBAD-8|^GBAD-9|^GBAD-2/.test(code)) {
-    // 8xx & 9xx include grouts and cleaners; refine using guide
-    const g = guideFor(code)
-    if (g?.category === 'Cleaners') return 'Cleaners'
-    if (g?.category === 'Admix') return 'Admix'
-    return 'Grouts'
-  }
-  return 'Adhesives'
 }
 
 export default ProductDetails

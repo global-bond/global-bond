@@ -11,7 +11,7 @@ function CategoryIcon({ keyName }: { keyName: string }) {
       )
     case 'Grouts':
       return (
-        <svg {...common}><path d="M3 3h18v2H3V3zm2 4h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm0 2v8h14V9H5zm3 2h2v4H8v-4zm4 0h2v4h-2v-4z"/></svg>
+        <img className="gba-card__icon-image" src="/images/Grouts.png" alt="" />
       )
     case 'Admix':
       return (

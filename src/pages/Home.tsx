@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from 'react'
+import { lazy, Suspense, useRef, useState, useEffect } from 'react'
 import './Home.css'
 import { products } from '../content/products'
 
@@ -6,14 +6,107 @@ const FooterSection = lazy(() => import('../components/FooterSection'))
 
 function HomePage() {
   const allProducts = products.flatMap((group) => group.items)
-  const sliderProducts = [...allProducts, ...allProducts]
+  const sliderProducts = [...allProducts, ...allProducts, ...allProducts]
   const sliderContainerRef = useRef<HTMLDivElement | null>(null)
+  const sliderTrackRef = useRef<HTMLDivElement | null>(null)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [scrollLeft, setScrollLeft] = useState(0)
+  const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const [leadStatus, setLeadStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
   const [leadMessage, setLeadMessage] = useState('')
 
   const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz-m8HombMNxJo300vmV3Tgmx1UN0ny3buJfU0yIWA-P_sBVMk93uNjf0MBqo4kEqpy/exec'
 
-  const getProductImage = (code: string) => `/images/products/${code}.png`
+  const getProductImage = (product: (typeof allProducts)[number]) => (
+    product.image ?? `/images/products/${product.code}.png`
+  )
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const slideNext = () => {
+      setCurrentIndex((prev) => (prev + 1) % allProducts.length)
+    }
+
+    autoPlayRef.current = setInterval(slideNext, 3000)
+
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+    }
+  }, [allProducts.length])
+
+  const applySliderTransform = () => {
+    if (!sliderTrackRef.current) return
+    const firstCard = sliderTrackRef.current.querySelector<HTMLElement>('.home__slider-card')
+    if (!firstCard) return
+    const cardRect = firstCard.getBoundingClientRect()
+    const trackStyles = window.getComputedStyle(sliderTrackRef.current)
+    const gapValue = Number.parseFloat(trackStyles.columnGap || trackStyles.gap || '0')
+    const cardWidth = cardRect.width + (Number.isNaN(gapValue) ? 0 : gapValue)
+    sliderTrackRef.current.style.transform = `translateX(-${currentIndex * cardWidth}px)`
+  }
+
+  // Apply transform based on currentIndex and card size
+  useEffect(() => {
+    applySliderTransform()
+  }, [currentIndex])
+
+  useEffect(() => {
+    const handleResize = () => applySliderTransform()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Mouse/Touch drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!sliderContainerRef.current) return
+    setIsDragging(true)
+    setStartX(e.pageX - sliderContainerRef.current.offsetLeft)
+    setScrollLeft(sliderContainerRef.current.scrollLeft)
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !sliderContainerRef.current) return
+    e.preventDefault()
+    const x = e.pageX - sliderContainerRef.current.offsetLeft
+    const walk = (x - startX) * 2
+    sliderContainerRef.current.scrollLeft = scrollLeft - walk
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+    // Restart autoplay
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+    autoPlayRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % allProducts.length)
+    }, 3000)
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!sliderContainerRef.current) return
+    setIsDragging(true)
+    setStartX(e.touches[0].pageX - sliderContainerRef.current.offsetLeft)
+    setScrollLeft(sliderContainerRef.current.scrollLeft)
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || !sliderContainerRef.current) return
+    const x = e.touches[0].pageX - sliderContainerRef.current.offsetLeft
+    const walk = (x - startX) * 2
+    sliderContainerRef.current.scrollLeft = scrollLeft - walk
+  }
+
+  const handleTouchEnd = () => {
+    setIsDragging(false)
+    // Restart autoplay
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current)
+    autoPlayRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % allProducts.length)
+    }, 3000)
+  }
 
   const handleLeadSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -93,6 +186,11 @@ function HomePage() {
           </p>
           <div className="home__hero-buttons">
             <a href="#contact" className="home__btn home__btn--primary">Get Consultation</a>
+            <button className="home__hero-menu-btn" aria-label="Menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
             <a href="/products" className="home__btn home__btn--secondary">Explore Products</a>
           </div>
           <div className="home__hero-features">
@@ -112,15 +210,11 @@ function HomePage() {
       <section className="home__trust-bar">
         <div className="home__trust-container">
           <div className="home__trust-item">
-            <div className="home__trust-number">20+</div>
+            <div className="home__trust-number">10+</div>
             <div className="home__trust-label">Years Experience</div>
           </div>
           <div className="home__trust-item">
-            <div className="home__trust-number">5000+</div>
-            <div className="home__trust-label">Projects Completed</div>
-          </div>
-          <div className="home__trust-item">
-            <div className="home__trust-number">200+</div>
+            <div className="home__trust-number">500+</div>
             <div className="home__trust-label">Distribution Partners</div>
           </div>
           <div className="home__trust-item">
@@ -144,7 +238,9 @@ function HomePage() {
             <a href="/products" className="home__card-link">Explore <span>→</span></a>
           </div>
           <div className="home__product-card">
-            <div className="home__product-icon">🎯</div>
+            <div className="home__product-icon home__product-icon--image">
+              <img src="/images/Grouts.png" alt="Grouts" />
+            </div>
             <h3>Grouts</h3>
             <p>Premium joint filling systems with superior strength and aesthetics</p>
             <a href="/products" className="home__card-link">Explore <span>→</span></a>
@@ -162,7 +258,9 @@ function HomePage() {
             <a href="/products" className="home__card-link">Explore <span>→</span></a>
           </div>
           <div className="home__product-card">
-            <div className="home__product-icon">🖇️</div>
+            <div className="home__product-icon home__product-icon--image">
+              <img src="/images/glue-icon.png" alt="Glue" />
+            </div>
             <h3>Glue</h3>
             <p>Quick bonding & specialty glues</p>
             <a href="/products" className="home__card-link">Explore <span>→</span></a>
@@ -176,22 +274,35 @@ function HomePage() {
           <h2>Products in Adhesives</h2>
           <p>Premium bonding solutions trusted by professionals nationwide</p>
         </div>
-        <div className="home__slider-container" ref={sliderContainerRef}>
-          <div className="home__slider-track">
+        <div 
+          className="home__slider-container" 
+          ref={sliderContainerRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+        >
+          <div className="home__slider-track" ref={sliderTrackRef}>
             {sliderProducts.map((product, index) => (
               <a 
                 href={`/product/${product.code}`} 
                 className="home__slider-card" 
                 key={`${product.code}-${index}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
+                onDragStart={(e) => e.preventDefault()}
               >
                 <div className="home__slider-card-image">
                   <img
-                    src={getProductImage(product.code)}
+                    src={getProductImage(product)}
                     alt={product.name}
                     onError={(event) => {
                       event.currentTarget.src = '/images/product-placeholder.svg'
                     }}
+                    draggable={false}
                   />
                 </div>
                 <div className="home__slider-card-content">
@@ -261,98 +372,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Proof of Performance */}
-      <section className="home__proof">
-        <div className="home__section-header">
-          <h2>Proof of Performance</h2>
-          <p>Real projects. Measurable outcomes. Uncompromising quality.</p>
-        </div>
-        <div className="home__proof-grid">
-          <div className="home__proof-card">
-            <div className="home__proof-image">
-              <img src="/images/case-study-1.jpg" alt="Mumbai Metro Phase 3 tile installation" />
-            </div>
-            <div className="home__proof-content">
-              <span className="home__proof-badge">Infrastructure</span>
-              <h3>Mumbai Metro Phase 3</h3>
-              <p>12,000 sqm metro concourse completed with rapid-set adhesive system. Zero tile failures after 18 months of high-traffic operation.</p>
-              <div className="home__proof-stats">
-                <div>
-                  <div className="home__proof-stat-number">12K</div>
-                  <div className="home__proof-stat-label">SQM Area</div>
-                </div>
-                <div>
-                  <div className="home__proof-stat-number">45</div>
-                  <div className="home__proof-stat-label">Days Completion</div>
-                </div>
-                <div>
-                  <div className="home__proof-stat-number">0</div>
-                  <div className="home__proof-stat-label">Failures</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home__proof-card">
-            <div className="home__proof-image">
-              <img src="/images/case-study-2.jpg" alt="Luxury hotel marble flooring installation" />
-            </div>
-            <div className="home__proof-content">
-              <span className="home__proof-badge">Commercial</span>
-              <h3>Taj Luxury Hotel Expansion</h3>
-              <p>Premium marble installation across 200 guest rooms and public areas. Delivered on accelerated timeline with zero rework.</p>
-              <div className="home__proof-stats">
-                <div>
-                  <div className="home__proof-stat-number">8K</div>
-                  <div className="home__proof-stat-label">SQM Area</div>
-                </div>
-                <div>
-                  <div className="home__proof-stat-number">60</div>
-                  <div className="home__proof-stat-label">Days Completion</div>
-                </div>
-                <div>
-                  <div className="home__proof-stat-number">100%</div>
-                  <div className="home__proof-stat-label">Quality Score</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Expert Resources */}
-      <section className="home__resources">
-        <div className="home__section-header">
-          <h2>Expert Resources</h2>
-          <p>Tailored support for every stakeholder in the construction ecosystem</p>
-        </div>
-        <div className="home__resources-grid">
-          <div className="home__resource-card">
-            <div className="home__resource-icon">📐</div>
-            <h3>Architects</h3>
-            <p>Technical specifications, CAD details, and design guidelines</p>
-            <a href="#" className="home__resource-link">Access Resources</a>
-          </div>
-          <div className="home__resource-card">
-            <div className="home__resource-icon">👷</div>
-            <h3>Contractors</h3>
-            <p>Installation guides, training programs, and project support</p>
-            <a href="#" className="home__resource-link">Access Resources</a>
-          </div>
-          <div className="home__resource-card">
-            <div className="home__resource-icon">🚚</div>
-            <h3>Distributors</h3>
-            <p>Partner portal, inventory management, and marketing tools</p>
-            <a href="#" className="home__resource-link">Access Resources</a>
-          </div>
-          <div className="home__resource-card">
-            <div className="home__resource-icon">🏠</div>
-            <h3>Homeowners</h3>
-            <p>Product guides, DIY tips, and contractor recommendations</p>
-            <a href="#" className="home__resource-link">Access Resources</a>
-          </div>
-        </div>
-      </section>
-
       {/* Distribution Network */}
       <section className="home__distribution">
         <div className="home__section-header">
@@ -360,16 +379,13 @@ function HomePage() {
           <p>Pan-India presence ensuring rapid delivery and local support</p>
         </div>
         <div className="home__distribution-content">
-          <div className="home__distribution-map">
-            <img src="/images/india-map.jpg" alt="India map showing distribution network" />
-          </div>
           <div className="home__distribution-stats">
             <div className="home__distribution-stat">
               <div className="home__distribution-stat-number">28</div>
               <div className="home__distribution-stat-label">States Covered</div>
             </div>
             <div className="home__distribution-stat">
-              <div className="home__distribution-stat-number">200+</div>
+              <div className="home__distribution-stat-number">500+</div>
               <div className="home__distribution-stat-label">Distribution Partners</div>
             </div>
             <div className="home__distribution-stat">

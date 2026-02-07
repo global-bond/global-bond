@@ -21,7 +21,7 @@ export const productGuide: ProductCategory[] = [
       { code: 'SUPERBOND', name: 'Tiles adhesive (ISI) Type-3', description: 'Tiles adhesive(ISI) Type-3', recommended: 'All type of stone & marble Int. / ext. floor & wall' },
       { code: 'GBAD-0133', name: 'Tiles adhesive (ISI) Type-3', description: 'Tiles adhesive(ISI) Type-3', recommended: 'All type of stone & marble Int. / ext. floor & wall' },
       { code: 'SUPERBOND PLUS', name: 'Tiles adhesive (ISI) Type-4', description: 'Tiles adhesive(ISI) Type-4', recommended: 'All type of stone & marble Int. / ext. floor & wall' },
-      { code: 'GBAD-0155', name: 'AAC Block laying adhesive', description: 'AAC Block laying adhesive', recommended: 'For ACC, CLC & Hollow Blocks' },
+      { code: 'GBAD-0155', name: 'AAC Block Laying Adhesive', description: 'AAC Block Laying Adhesive', recommended: 'For ACC, CLC & Hollow Blocks' },
       { code: 'GBAD-0166', name: 'Ready Mix Plaster', description: 'Ready Mix Plaster', recommended: 'For Exterior & Interior Wall' },
     ],
   },

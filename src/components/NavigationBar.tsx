@@ -7,6 +7,7 @@ import type { CatalogCategory } from '../content/products'
 function NavigationBar() {
   const [hidden, setHidden] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const lastYRef = useRef<number>(0)
 
   useEffect(() => {
@@ -122,21 +123,19 @@ function NavigationBar() {
         <Link to="/" className="gba-header__brand" aria-label="GBAD Globalbond">
           <div className="gba-header__logo-box">
             <img
-              src="/logo-gbad-globalbond.png"
+              src="/logo-gbad-globalbond.svg"
               alt="GBAD Globalbond logo"
               className="gba-header__logo-img"
             />
           </div>
-          <span className="gba-header__tagline">
-            TILE ADHESIVE, GROUT, EPOXY
-          </span>
+          <span className="gba-header__tagline">Tile Adhesive, Grout, Epoxy</span>
         </Link>
 
         <nav className="gba-header__links" aria-label="Main navigation">
-          <Link to="/" className={`gba-nav__link ${isActive('/') ? 'gba-nav__link--active' : ''}`}>
+          <Link to="/" className={`gba-nav__link ${isActive('/') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
             Home
           </Link>
-          <Link to="/product-guide" className={`gba-nav__link ${isActive('/product-guide') ? 'gba-nav__link--active' : ''}`}>
+          <Link to="/product-guide" className={`gba-nav__link ${isActive('/product-guide') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
             Product Guide
           </Link>
           <div className={`gba-nav__dropdown ${productsOpen ? 'is-open' : ''}`} ref={dropdownRef}>
@@ -201,10 +200,49 @@ function NavigationBar() {
               </div>
             </div>
           </div>
-          <Link to="/about" className={`gba-nav__link ${isActive('/about') ? 'gba-nav__link--active' : ''}`}>
+          <Link to="/about" className={`gba-nav__link ${isActive('/about') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
             About
           </Link>
-          <Link to="/contact" className={`gba-nav__link ${isActive('/contact') ? 'gba-nav__link--active' : ''}`}>
+          <Link to="/contact" className={`gba-nav__link ${isActive('/contact') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+            Contact
+          </Link>
+        </nav>
+
+        {/* Hamburger Menu Button for Mobile */}
+        <button
+          className={`gba-header__menu-btn ${mobileMenuOpen ? 'is-open' : ''}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={mobileMenuOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* Mobile Menu Overlay */}
+        {mobileMenuOpen && (
+          <div 
+            className="gba-header__mobile-overlay"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+        )}
+
+        {/* Mobile Menu Drawer */}
+        <nav className={`gba-header__mobile-menu ${mobileMenuOpen ? 'is-open' : ''}`} aria-label="Mobile navigation">
+          <Link to="/" className={`gba-nav__link ${isActive('/') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+            Home
+          </Link>
+          <Link to="/product-guide" className={`gba-nav__link ${isActive('/product-guide') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+            Product Guide
+          </Link>
+          <Link to="/products" className={`gba-nav__link ${isProductsActive ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+            Products
+          </Link>
+          <Link to="/about" className={`gba-nav__link ${isActive('/about') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
+            About
+          </Link>
+          <Link to="/contact" className={`gba-nav__link ${isActive('/contact') ? 'gba-nav__link--active' : ''}`} onClick={() => setMobileMenuOpen(false)}>
             Contact
           </Link>
         </nav>

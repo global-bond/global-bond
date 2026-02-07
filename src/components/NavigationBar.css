@@ -27,8 +27,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.4rem min(6vw, 4.5rem);
-  font-size: 0.78rem;
+  padding: 0.15rem min(6vw, 4.5rem);
+  font-size: 0.68rem;
   border-bottom: 1px solid #1f2937;
   background-color: #0c1424;
 }
@@ -67,8 +67,8 @@
 }
 
 .gba-header__social {
-  width: 22px;
-  height: 22px;
+  width: 17px;
+  height: 17px;
   border-radius: 999px;
   border: 1px solid #334155;
   background: #0f172a;
@@ -94,17 +94,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem min(6vw, 4.5rem);
-  gap: 1.25rem;
+  padding: 0.1rem min(6vw, 4.5rem);
+  gap: 0.75rem;
 }
 
 .gba-header__brand {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.15rem;
   align-items: center;
   /* Keep logo and tagline perfectly matched */
-  --logo-width: 220px; /* widen so tagline fits on one line */
+  --logo-width: 150px;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -116,7 +116,7 @@
 }
 
 .gba-header__logo-box {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: var(--logo-width);
@@ -126,11 +126,13 @@
   width: 100%;
   height: auto;
   display: block;
+  /* transform: scale(1.3); */
+  /* transform-origin: center; */
 }
 
 .gba-header__tagline {
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
+  font-size: 0.52rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: #94a3b8;
   width: var(--logo-width);
@@ -143,8 +145,8 @@
 .gba-header__links {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  font-size: 0.84rem;
+  gap: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-left: auto; /* push nav to the right */
@@ -160,12 +162,12 @@
   color: #cbd5e1;
   text-decoration: none;
   position: relative;
-  padding: 0.25rem 0.6rem;
+  padding: 0.16rem 0.4rem;
   border-radius: 6px;
   transition: color 160ms ease, background-color 160ms ease;
   display: inline-block;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 0.74rem;
   font-weight: 500;
   letter-spacing: 0.5px;
 }
@@ -189,21 +191,23 @@
 .gba-nav__link--active::after {
   content: "";
   position: absolute;
-  left: 0.6rem;
-  right: 0.6rem;
+  left: 50%;
+  width: 60%;
   bottom: -8px;
   height: 2px;
   background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+  transform: translateX(-50%);
 }
 
 .gba-nav__link:hover::after {
   content: "";
   position: absolute;
-  left: 0.6rem;
-  right: 0.6rem;
+  left: 50%;
+  width: 60%;
   bottom: -8px;
   height: 2px;
   background: linear-gradient(90deg, #2dd4bf, #14b8a6);
+  transform: translateX(-50%);
 }
 
 .gba-header__links a.active {
@@ -212,11 +216,11 @@
 }
 
 .gba-header__cta {
-  padding: 0.55rem 1.2rem;
+  padding: 0.36rem 0.85rem;
   border-radius: 999px;
   background: linear-gradient(90deg, #00BFA6, #1DD1A1);
   color: #052e2b;
-  font-size: 0.84rem;
+  font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -232,13 +236,13 @@
   top: calc(100% + 10px);
   left: 0;
   transform: none;
-  width: min(260px, 90vw);
+  width: min(220px, 88vw);
   display: none;
   background: var(--gba-surface, #0b1222);
   border: 1px solid var(--gba-border-subtle, #1f2937);
   border-radius: 12px;
   box-shadow: 0 18px 42px rgba(2,6,12,.45);
-  padding: .75rem;
+  padding: .6rem;
   z-index: 1001;
   color: #e5e7eb;
 }
@@ -250,7 +254,7 @@
   display: grid;
   gap: .35rem;
   align-content: start;
-  min-width: 200px;
+  min-width: 170px;
 }
 .gba-mega__cat {
   width: 100%;
@@ -259,9 +263,9 @@
   color: #cbd5e1;
   border: 1px solid transparent;
   border-radius: 8px;
-  padding: .55rem .6rem;
+  padding: .45rem .55rem;
   cursor: pointer;
-  font-size: .9rem;
+  font-size: .82rem;
   text-decoration: none;
   display: block;
 }
@@ -271,28 +275,28 @@
 .gba-mega__submenu {
   position: absolute;
   left: calc(100% + 12px);
-  min-width: 280px;
-  max-width: 360px;
+  min-width: 240px;
+  max-width: 320px;
   background: var(--gba-surface, #0b1222);
   border: 1px solid var(--gba-border-subtle, #1f2937);
   border-radius: 12px;
   box-shadow: 0 16px 36px rgba(2,6,12,.45);
-  padding: .75rem;
+  padding: .6rem;
   z-index: 1002;
 }
 
 .gba-mega__submenu-title {
-  font-size: .82rem;
+  font-size: .76rem;
   text-transform: uppercase;
   letter-spacing: .08em;
   color: #94a3b8;
-  margin-bottom: .5rem;
+  margin-bottom: .4rem;
 }
 
 .gba-mega__submenu-list {
   display: grid;
-  gap: .4rem;
-  max-height: 320px;
+  gap: .35rem;
+  max-height: 280px;
   overflow: auto;
   padding-right: .25rem;
 }
@@ -300,10 +304,10 @@
 .gba-mega__submenu-item {
   color: #e2e8f0;
   text-decoration: none;
-  padding: .4rem .5rem;
+  padding: .35rem .45rem;
   border-radius: 6px;
   border: 1px solid transparent;
-  font-size: .9rem;
+  font-size: .82rem;
 }
 
 .gba-mega__submenu-item:hover {
@@ -325,26 +329,137 @@
   filter: brightness(1.05);
 }
 
+/* Hide hamburger menu button on desktop */
+.gba-header__menu-btn {
+  display: none;
+}
+
+/* Hide mobile menu and overlay on desktop */
+.gba-header__mobile-overlay {
+  display: none;
+}
+
+.gba-header__mobile-menu {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .gba-header__top {
-    padding-inline: 1.5rem;
+    padding-inline: 0.85rem;
   }
 
   .gba-header__main {
-    padding-inline: 1.25rem;
-    gap: 0.9rem;
+    padding-inline: 0.8rem;
+    gap: 0.55rem;
   }
 
   .gba-header__links {
     display: none;
   }
 
+  /* Hamburger Menu Button */
+  .gba-header__menu-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.75rem 0.5rem;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    margin-left: auto;
+  }
+
+  .gba-header__menu-btn span {
+    width: 24px;
+    height: 2px;
+    background: #e5e7eb;
+    transition: all 0.3s ease;
+    display: block;
+  }
+
+  .gba-header__menu-btn.is-open span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+  }
+
+  .gba-header__menu-btn.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .gba-header__menu-btn.is-open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  /* Mobile Menu Overlay */
+  .gba-header__mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+
+  /* Mobile Menu Drawer */
+  .gba-header__mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85vw;
+    max-width: 350px;
+    height: 100vh;
+    background: #0c1424;
+    border-right: 1px solid #1f2937;
+    z-index: 999;
+    overflow-y: auto;
+    padding-top: 6rem;
+    padding-inline: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .gba-header__mobile-menu.is-open {
+    transform: translateX(0);
+  }
+
+  .gba-header__mobile-menu .gba-nav__link {
+    padding: 1rem;
+    border-bottom: 1px solid #1f2937;
+    display: block;
+    width: 100%;
+    text-align: left;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+
+  .gba-header__mobile-menu .gba-nav__link:hover {
+    background: rgba(0, 200, 255, 0.1);
+    color: #00c2ff;
+  }
+
+  .gba-header__mobile-menu .gba-nav__link--active {
+    background: rgba(0, 200, 255, 0.15);
+    color: #00c2ff;
+    border-left: 3px solid #00c2ff;
+    padding-left: calc(1rem - 3px);
+  }
+
   /* Keep logo/tagline matched on smaller screens */
   .gba-header__brand { 
-    --logo-width: 140px; 
+    --logo-width: 98px; 
   }
   .gba-header__tagline {
-    white-space: normal;
+    font-size: 0.4rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
   }
   .gba-header__logo-img {
     width: 100%;

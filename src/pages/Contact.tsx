@@ -7,7 +7,7 @@ function Contact() {
     <main className="gba-contact-page">
       <section className="gba-contact-hero" aria-labelledby="contact-hero-title">
         <div className="gba-contact-hero__media" aria-hidden="true">
-          <img src="/images/contact-hero.jpg" alt="Construction professionals reviewing project plans" />
+          <img src="/contact.png" alt="Construction professionals reviewing project plans" />
           <div className="gba-contact-hero__overlay" />
         </div>
         <div className="gba-contact-hero__content">

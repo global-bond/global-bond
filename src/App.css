@@ -18,6 +18,7 @@
   --gba-radius-md: 14px;
   --gba-radius-pill: 999px;
   --gba-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --gba-header-height: 82px;
 }
 
 body {
@@ -39,8 +40,8 @@ body {
     radial-gradient(circle at 0 0, rgba(99, 102, 241, 0.12), transparent 60%),
     radial-gradient(circle at 100% 20%, rgba(14, 165, 233, 0.10), transparent 55%),
     linear-gradient(180deg, #0b1220 0%, #0f172a 60%, #111827 100%);
-  /* Offset for fixed header - top bar (~30px) + main bar (~72px) = ~102px */
-  margin-top: var(--gba-header-height, 130px);
+  /* Offset for fixed header */
+  margin-top: var(--gba-header-height, 82px);
 }
 
 .gba-section {

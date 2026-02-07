@@ -6,6 +6,21 @@ export const products: ProductCategoryGroup[] = [
     items: [
       {
         code: 'GBAD-0111',
+        name: 'GBAD-0111 Polymer Modified Tile Adhesive',
+        type: 'ISI Type-1',
+        category: 'Adhesives',
+        features: [
+          'Polymer fortified adhesive',
+          'Easy to mix and apply',
+          'No curing or soaking of tiles',
+          'Increases productivity and saves time',
+          'Good bond strength',
+        ],
+        packSize: '20 KG',
+        image: '/images/products/GBAD-0111.webp',
+      },
+      {
+        code: 'GLOBALBOND',
         name: 'Globalbond Ceramic Tile Adhesive',
         type: 'ISI Type-1',
         category: 'Adhesives',
@@ -17,9 +32,25 @@ export const products: ProductCategoryGroup[] = [
           'Good bond strength',
         ],
         packSize: '20 KG',
+        image: '/images/products/GLOBALBOND.webp',
       },
       {
         code: 'GBAD-0122',
+        name: 'GBAD-0122 Polymer Modified Tile Adhesive',
+        type: 'ISI Type-2',
+        category: 'Adhesives',
+        features: [
+          'Polymer fortified adhesive',
+          'Easy to mix and apply',
+          'No curing or soaking of tiles',
+          'High bond strength',
+          'Suitable for interior wall & floor tiles',
+        ],
+        packSize: '20 KG',
+        image: '/images/products/GBAD-0122.webp',
+      },
+      {
+        code: 'AQUABOND',
         name: 'Aquabond Grey/White Adhesive',
         type: 'ISI Type-2',
         category: 'Adhesives',
@@ -31,9 +62,25 @@ export const products: ProductCategoryGroup[] = [
           'Suitable for interior wall & floor tiles',
         ],
         packSize: '20 KG',
+        image: '/images/products/AQUABOND.webp',
       },
       {
         code: 'GBAD-0133',
+        name: 'Tiles adhesive (ISI) Type-3',
+        type: 'ISI Type-3',
+        category: 'Adhesives',
+        features: [
+          'High polymer fortified adhesive',
+          'Excellent bond strength and slip resistance',
+          'Easy to mix and apply',
+          'No curing or soaking of tiles/stones',
+          'Suitable for interior & exterior cladding',
+        ],
+        packSize: '20 KG',
+        image: '/images/products/GBAD-0133.webp',
+      },
+      {
+        code: 'SUPERBOND',
         name: 'Superbond Adhesive (Wall Set)',
         type: 'ISI Type-3',
         category: 'Adhesives',
@@ -45,6 +92,7 @@ export const products: ProductCategoryGroup[] = [
           'Suitable for interior & exterior cladding',
         ],
         packSize: '20 KG',
+        image: '/images/products/SUPERBOND.webp',
       },
       {
         code: 'GBAD-T07',
@@ -94,7 +142,7 @@ export const products: ProductCategoryGroup[] = [
     items: [
       {
         code: 'GBAD-0155',
-        name: 'AAC Block Adhesive',
+        name: 'AAC Block Laying Adhesive',
         category: 'Block Adhesive',
         features: [
           'Economical and easy application',
@@ -104,6 +152,7 @@ export const products: ProductCategoryGroup[] = [
           'Consistent mix quality',
         ],
         packSize: '30 KG / 40 KG',
+        image: '/images/products/GBAD-0155.webp',
       },
       {
         code: 'GBAD-0166',
@@ -140,6 +189,7 @@ export const products: ProductCategoryGroup[] = [
           'Self-curing',
         ],
         packSize: '1 KG / 10 KG',
+        image: '/images/products/GBAD-821.webp',
       },
       {
         code: 'GBAD-920',
@@ -151,6 +201,7 @@ export const products: ProductCategoryGroup[] = [
           'Available in more than 50 shades',
         ],
         packSize: '1 KG / 10 KG',
+        image: '/images/products/GBAD-920.webp',
       },
       {
         code: 'GBAD-100',
@@ -163,6 +214,7 @@ export const products: ProductCategoryGroup[] = [
           'Acid and water resistant',
         ],
         packSize: '1 KG / 5 KG',
+        image: '/images/products/GBAD-100.webp',
       },
       {
         code: 'GBAD-101',
@@ -174,6 +226,7 @@ export const products: ProductCategoryGroup[] = [
           'High strength, water resistant',
         ],
         packSize: '1 KG / 5 KG',
+        image: '/images/products/GBAD-101.webp',
       },
       {
         code: 'GBAD-211',
@@ -192,6 +245,7 @@ export const products: ProductCategoryGroup[] = [
           'No odor during application',
         ],
         packSize: '5 KG',
+        image: '/images/products/GBAD-211.webp',
       },
     ],
   },
@@ -209,6 +263,7 @@ export const products: ProductCategoryGroup[] = [
           'Can be used as bonding agent',
         ],
         packSize: '300 ML / 1 LTR',
+        image: '/images/products/GBAD-911.webp',
       },
       {
         code: 'GBAD-811',
@@ -222,6 +277,7 @@ export const products: ProductCategoryGroup[] = [
           'New formula',
         ],
         packSize: '500 ML / 5 LTR Bottle/Can',
+        image: '/images/products/GBAD-811.webp',
       },
       {
         code: 'GBAD-831',
@@ -235,6 +291,7 @@ export const products: ProductCategoryGroup[] = [
           'Brighter shine',
         ],
         packSize: '500 ML Bottle',
+        image: '/images/products/GBAD-831.webp',
       },
       {
         code: 'GBAD-501',
@@ -257,6 +314,7 @@ export const products: ProductCategoryGroup[] = [
           'Self‑curing for cement slurry',
         ],
         packSize: '300 ML',
+        image: '/images/products/GBAD-421.webp',
       },
       {
         code: 'GBAD-921',
